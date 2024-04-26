@@ -42,6 +42,7 @@ namespace PokerHards.Tests
         [Fact]
         public void HandWith_Pair_ShouldWin()
         {
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two },
@@ -60,9 +61,11 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Spades, Rank = Rank.Six }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+            // Assert
             result.WinningHand.Should().Be(hand1);
             result.HandDealt.Should().Be(HandDealt.Pair);
         }
@@ -70,6 +73,7 @@ namespace PokerHards.Tests
         [Fact]
         public void HandWith_HigherPair_ShouldWin()
         {
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two },
@@ -88,9 +92,11 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Spades, Rank = Rank.Six }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+            // Assert
             result.WinningHand.Should().Be(hand2);
             result.HandDealt.Should().Be(HandDealt.Pair);
         }
@@ -98,7 +104,7 @@ namespace PokerHards.Tests
         [Fact]
         public void HandWith_TwoPairs_ShouldWin()
         {
-            // Create hands for testing
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two },
@@ -117,9 +123,11 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Spades, Rank = Rank.Three }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+            // Assert
             result.WinningHand.Should().Be(hand2);
             result.HandDealt.Should().Be(HandDealt.TwoPairs);
         }
@@ -127,7 +135,7 @@ namespace PokerHards.Tests
         [Fact]
         public void BothHandsWith_SamePair_HandWithHigherCardShouldWin()
         {
-            // Create hands for testing
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two },
@@ -146,9 +154,11 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Spades, Rank = Rank.Nine }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+            // Assert
             result.WinningHand.Should().Be(hand1);
             result.HandDealt.Should().Be(HandDealt.HighCard);
         }
@@ -156,6 +166,7 @@ namespace PokerHards.Tests
         [Fact]
         public void HandWith_ThreeOfAKind_ShouldWin()
         {
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two },
@@ -174,9 +185,12 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Diamonds, Rank = Rank.Three }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+
+            // Assert
             result.WinningHand.Should().Be(hand2);
             result.HandDealt.Should().Be(HandDealt.ThreeOfAKind);
         }
@@ -184,6 +198,7 @@ namespace PokerHards.Tests
         [Fact]
         public void HandsWith_Flush_ShouldWin()
         {
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two },
@@ -202,9 +217,11 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Spades, Rank = Rank.Six }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+            // Assert
             result.WinningHand.Should().Be(hand1);
             result.HandDealt.Should().Be(HandDealt.Flush);
         }
@@ -212,6 +229,7 @@ namespace PokerHards.Tests
         [Fact]
         public void BothHandsWith_Flush_HandWithHigherCardShouldWin()
         {
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two },
@@ -230,9 +248,11 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Clubs, Rank = Rank.Six }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+            // Assert
             result.WinningHand.Should().Be(hand2);
             result.HandDealt.Should().Be(HandDealt.HighCard);
         }
@@ -240,6 +260,7 @@ namespace PokerHards.Tests
         [Fact]
         public void HandsWith_SameCards_TieShouldBeReturned()
         {
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two },
@@ -258,9 +279,11 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Clubs, Rank = Rank.King }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+            // Assert
             result.WinningHand.Should().Be(null);
             result.HandDealt.Should().Be(HandDealt.Tie);
         }
@@ -268,6 +291,7 @@ namespace PokerHards.Tests
         [Fact]
         public void HandsWith_SamePair_HighCardOutsidePairShouldWin()
         {
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Ace },
@@ -286,9 +310,11 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Clubs, Rank = Rank.King }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+            // Arrange
             result.WinningHand.Should().Be(hand2);
             result.HandDealt.Should().Be(HandDealt.HighCard);
         }
@@ -296,6 +322,7 @@ namespace PokerHards.Tests
         [Fact]
         public void HandsWith_TwoSamePairsAndTheSameRemainingCard_TieShouldBeReturned()
         {
+            // Arrange
             var hand1 = new PokerHand(new List<Card>
             {
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two },
@@ -314,9 +341,11 @@ namespace PokerHards.Tests
                 new Card { Suit = Suit.Clubs, Rank = Rank.Two }
             });
 
+            // Act
             var sut = new PokerHandEvaluator();
             var result = sut.Evaluate(hand1, hand2);
 
+            // Arrange
             result.WinningHand.Should().Be(null);
             result.HandDealt.Should().Be(HandDealt.Tie);
         }

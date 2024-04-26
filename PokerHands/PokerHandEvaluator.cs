@@ -77,7 +77,7 @@ namespace PokerHands.Code
 
         private static PokerHandResult CompareHighestCard(PokerHand hand1, PokerHand hand2)
         {
-            return CompareHighestCardExceptRank(hand1, hand2, new Rank[0]);
+            return CompareHighestCardExceptRank(hand1, hand2, Array.Empty<Rank>());
         }
 
         private static PokerHandResult CompareHighestCardExceptRank(PokerHand hand1, PokerHand hand2, Rank[] cardRanks)
@@ -92,14 +92,18 @@ namespace PokerHands.Code
                 else if (hand1Cards.ElementAt(i).Rank < hand2Cards.ElementAt(i).Rank)
                     return new PokerHandResult(hand2, HandDealt.HighCard);
             }
-            return new PokerHandResult(null, HandDealt.Tie);
+            return new PokerHandResult(winningHand: null, HandDealt.Tie);
        }
 
         private static Rank GetPairRank(PokerHand hand)
         {
             var groups = hand.Cards.GroupBy(card => card.Rank);
             var pairGroup = groups.FirstOrDefault(group => group.Count() == 2);
-            return pairGroup != null ? pairGroup.Key : Rank.Two;
+
+            if (pairGroup != null)
+                return pairGroup.Key;
+
+            return Rank.Two;
         }
 
         private static Rank[] GetPairsRank(PokerHand hand)
@@ -114,6 +118,7 @@ namespace PokerHands.Code
         {
             var groups = hand.Cards.GroupBy(card => card.Rank);
             var threeOfKindGroup = groups.FirstOrDefault(group => group.Count() == 3);
+
             return threeOfKindGroup != null ? threeOfKindGroup.Key : Rank.Two;
         }
     }
