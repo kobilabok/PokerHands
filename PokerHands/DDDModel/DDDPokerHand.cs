@@ -41,7 +41,7 @@ namespace PokerHands.DDDModel
 
         public int EvaluateHandValue()
         {
-            if (HasFlush()) return 6;
+            if (HasFlush()) return 5;
             if (HasThreeOfAKind()) return 4;
             if (HasTwoPairs()) return 3;
             if (HasPair()) return 2;
