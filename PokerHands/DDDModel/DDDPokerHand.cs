@@ -5,6 +5,7 @@ namespace PokerHands.DDDModel
     public class DDDPokerHand : IComparable<DDDPokerHand>
     {
         public IReadOnlyCollection<DDDCard> Cards { get; }
+
         public DDDPokerHand(DDDCard card1, DDDCard card2, DDDCard card3, DDDCard card4, DDDCard card5)
         {
             Cards = new[] { card1, card2, card3, card4, card5 };
@@ -62,17 +63,6 @@ namespace PokerHands.DDDModel
                     return -1;
             }
             return 0;
-        }
-
-        private static Rank GetPairRank(DDDPokerHand hand)
-        {
-            var groups = hand.Cards.GroupBy(card => card.Rank);
-            var pairGroup = groups.FirstOrDefault(group => group.Count() == 2);
-
-            if (pairGroup != null)
-                return pairGroup.Key;
-
-            return Rank.Two;
         }
     }
 }

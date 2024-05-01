@@ -87,7 +87,7 @@ namespace PokerHards.Tests
         }
 
         [Fact]
-        public void BothHandsWith_SamePair_HandWithHigherCardShouldWin()
+        public void BothHandsWith_SamePair_HandWithHighestCardShouldWin()
         {
             // Arrange
             var hand1 = new DDDPokerHand(
@@ -100,16 +100,16 @@ namespace PokerHards.Tests
             var hand2 = new DDDPokerHand(
                 new DDDCard(Suit.Hearts, Rank.Two),
                 new DDDCard(Suit.Diamonds, Rank.Two),
-                new DDDCard(Suit.Hearts, Rank.Jack),
-                new DDDCard(Suit.Spades, Rank.Three),
+                new DDDCard(Suit.Hearts, Rank.Ace),
+                new DDDCard(Suit.Spades, Rank.Jack),
                 new DDDCard(Suit.Spades, Rank.Six));
 
             // Act
             hand1.CompareTo(hand2);
 
             // Assert
-            hand1.Should().BeGreaterThan(hand2);
-            hand1.GetHandType().Should().Be(HandDealt.HighCard);
+            hand2.Should().BeGreaterThan(hand1);
+            hand2.GetHandType().Should().Be(HandDealt.Pair);
         }
 
         [Fact]
